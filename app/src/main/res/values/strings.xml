@@ -1,3 +1,9 @@
 <resources>
-    <string name="app_name">yyyyyy</string>
+    <string name="app_name">Joke App</string>
+    <string name="love">love</string>
+    <string name="share">share</string>
+    <string name="joke">Jokes</string>
+    <string name="favJokes">Favorite Jokes</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

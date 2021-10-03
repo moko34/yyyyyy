@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class JokesManager {
-    private Context context;
+    private final Context context;
 
     public JokesManager(Context context) {
         this.context = context;

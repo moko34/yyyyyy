@@ -1,5 +1,7 @@
 package com.example.yyyyyy;
 
+import android.animation.AnimatorInflater;
+import android.animation.AnimatorSet;
 import android.content.Context;
 import android.graphics.Color;
 import android.util.Log;
@@ -26,7 +28,7 @@ public class JokesAdapter extends RecyclerView.Adapter<JokesViewHolder> {
         void hasLikedJoke(Joke joke);
         void hasSharedJoke(Joke joke);
     }
-
+    private AnimatorSet animatorSet;
     private JokeIsLiked jokeIsLiked;
     private ArrayList<Joke> yoMamaJokes;
     private Context context;
@@ -37,6 +39,7 @@ public class JokesAdapter extends RecyclerView.Adapter<JokesViewHolder> {
         this.jokeIsLiked = jokeIsLiked;
         this.yoMamaJokes = yoMamaJokes;
         this.context = context;
+        animatorSet= (AnimatorSet) AnimatorInflater.loadAnimator(context,R.animator.love_rotate);
     }
 
     @NonNull
@@ -58,12 +61,15 @@ public class JokesAdapter extends RecyclerView.Adapter<JokesViewHolder> {
         holder.cardView.setCardBackgroundColor(Color.argb(a,r,g,b));
         Joke joke=new Joke(yoMamaJokes.get(position).getContent(),false);
        holder.getJokeText().setText(joke.getContent());
+
         holder.cardView.setAnimation(AnimationUtils.loadAnimation(context,R.anim.fade_translate_animation));
        holder.getJokeText().setText(joke.getContent());
         holder.getBtnLike().setOnClickListener(v -> {
                 joke.setLiked(true);
                 jokeIsLiked.hasLikedJoke(joke);
+                    setAnimation(holder.getBtnLike());
                 Snackbar.make(holder.getBtnLike(),context.getString(R.string.liked,position+1), BaseTransientBottomBar.LENGTH_LONG).show();
+
         }
         );
         holder.getBtnShare().setOnClickListener(view ->{
@@ -77,12 +83,12 @@ public class JokesAdapter extends RecyclerView.Adapter<JokesViewHolder> {
         return yoMamaJokes.size();
     }
 
-    public  void setAnimation(View viewToAnimate,int position){
-        if (position>lastPosition){
-            Animation animation=AnimationUtils.loadAnimation(context,R.anim.fade_translate_animation);
+    public  void setAnimation(View viewToAnimate){
+
+            Animation animation=AnimationUtils.loadAnimation(context,R.anim.like_rotate);
             viewToAnimate.startAnimation(animation);
-            lastPosition=position;
-        }
+
+
 
     }
 }

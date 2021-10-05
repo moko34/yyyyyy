@@ -10,10 +10,9 @@
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/purple_500"
+        android:layout_height="40dp"
+        android:background="@android:color/transparent"
         android:orientation="horizontal"
-        android:paddingTop="30dp"
         app:layout_constraintBottom_toTopOf="@+id/fragmentContainer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,15 +21,16 @@
         <TextView
             android:id="@+id/joke"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="start"
+            android:background="@drawable/menu_wrapper"
+            android:gravity="center|start"
             android:paddingStart="20dp"
             android:paddingEnd="0dp"
             android:text="@string/joke"
             android:textAllCaps="false"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textColor="@color/white"
+            android:textColor="?attr/colorPrimaryVariant"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -38,13 +38,14 @@
         <TextView
             android:id="@+id/fav_jokes"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center_horizontal|end"
-            android:paddingEnd="20dp"
+            android:gravity="center|center_horizontal|end"
             android:paddingStart="0dp"
+            android:paddingEnd="20dp"
             android:text="@string/favJokes"
             android:textAllCaps="false"
+            android:textColor="@android:color/darker_gray"
             android:textSize="18sp"
             android:textStyle="bold" />
 

@@ -6,6 +6,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -22,18 +24,19 @@ public class JokesAdapter extends RecyclerView.Adapter<JokesViewHolder> {
 
     interface JokeIsLiked{
         void hasLikedJoke(Joke joke);
+        void hasSharedJoke(Joke joke);
     }
-    private JokesManager jokesManager;
+
     private JokeIsLiked jokeIsLiked;
     private ArrayList<Joke> yoMamaJokes;
     private Context context;
     private int a,r,g,b;
+    int lastPosition=-1;
 
     public JokesAdapter(JokeIsLiked jokeIsLiked, ArrayList<Joke> yoMamaJokes, Context context) {
         this.jokeIsLiked = jokeIsLiked;
         this.yoMamaJokes = yoMamaJokes;
         this.context = context;
-        jokesManager=new JokesManager(context);
     }
 
     @NonNull
@@ -52,18 +55,20 @@ public class JokesAdapter extends RecyclerView.Adapter<JokesViewHolder> {
         r = 1 + random.nextInt(255);
         g = 1 + random.nextInt(255);
         b = 1 + random.nextInt(255);
-        holder.getCardView().setCardBackgroundColor(Color.argb(a,r,g,b));
+        holder.cardView.setCardBackgroundColor(Color.argb(a,r,g,b));
         Joke joke=new Joke(yoMamaJokes.get(position).getContent(),false);
-        holder.getJokeText().setText(joke.getContent());
+       holder.getJokeText().setText(joke.getContent());
+        holder.cardView.setAnimation(AnimationUtils.loadAnimation(context,R.anim.fade_translate_animation));
+       holder.getJokeText().setText(joke.getContent());
         holder.getBtnLike().setOnClickListener(v -> {
                 joke.setLiked(true);
-                jokesManager.saveJokes(joke);
                 jokeIsLiked.hasLikedJoke(joke);
-              //  jokeIsLiked.likeButtonIsClicked(joke);
                 Snackbar.make(holder.getBtnLike(),context.getString(R.string.liked,position+1), BaseTransientBottomBar.LENGTH_LONG).show();
         }
         );
-        holder.getBtnShare().setOnClickListener(view ->{});
+        holder.getBtnShare().setOnClickListener(view ->{
+            jokeIsLiked.hasSharedJoke(joke);
+        });
 
     }
 
@@ -72,5 +77,12 @@ public class JokesAdapter extends RecyclerView.Adapter<JokesViewHolder> {
         return yoMamaJokes.size();
     }
 
+    public  void setAnimation(View viewToAnimate,int position){
+        if (position>lastPosition){
+            Animation animation=AnimationUtils.loadAnimation(context,R.anim.fade_translate_animation);
+            viewToAnimate.startAnimation(animation);
+            lastPosition=position;
+        }
 
+    }
 }

@@ -5,6 +5,9 @@
     <string name="joke">Jokes</string>
     <string name="liked"><i>"You Liked Joke Number : %d"</i></string>
     <string name="favJokes">Favorite Jokes</string>
+    <string name="splash">Splash</string>
+    <string name="joke_deleted">Joke has been removed</string>
+    <string name="undo">UNDO</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
